@@ -13,15 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ 디버깅: 현재 작업 경로 확인
-      - name: Debug Workspace
-        run: |
-          cd $GITHUB_WORKSPACE
-          echo "Current working directory:"
-          pwd
-          echo "Files in workspace:"
-          ls -al
-
       # 3️⃣ JDK 21 설정
       - name: Set up Java
         uses: actions/setup-java@v3
