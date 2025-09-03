@@ -37,7 +37,12 @@ jobs:
         run: ./gradlew build
 
       # 6️⃣ 앱 실행 (기존 프로세스 종료 후)
+      # GitHub Actions 워크플로우 예시
       - name: Run App
         run: |
+          export DB_URL=${{ secrets.DEV_DB_URL }}
+          export DB_USERNAME=${{ secrets.DEV_DB_USERNAME }}
+          export DB_PASSWORD=${{ secrets.DEV_DB_PASSWORD }}
+
           pkill -f lv3-final-mission.jar || true
           nohup java -jar build/libs/lv3-final-mission.jar --spring.profiles.active=dev > app.log 2>&1 &
