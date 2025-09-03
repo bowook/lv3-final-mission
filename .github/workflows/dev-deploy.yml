@@ -22,11 +22,15 @@ jobs:
 
       # 4️⃣ Gradle 실행 권한 부여
       - name: Make Gradlew Executable
-        run: chmod +x ./gradlew
+        run: |
+          cd $GITHUB_WORKSPACE
+          chmod +x ./gradlew
 
       # 5️⃣ Gradle 빌드
       - name: Build with Gradle
-        run: ./gradlew build
+        run: |
+          cd $GITHUB_WORKSPACE
+          ./gradlew build
 
       # 6️⃣ 앱 실행 (기존 프로세스 종료 후)
       # GitHub Actions 워크플로우 예시
