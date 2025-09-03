@@ -16,6 +16,7 @@ jobs:
       # 2️⃣ 디버깅: 현재 작업 경로 확인
       - name: Debug Workspace
         run: |
+          cd $GITHUB_WORKSPACE
           echo "Current working directory:"
           pwd
           echo "Files in workspace:"
