@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: lv3-final-mission
+
+security:
+  jwt:
+    token:
+      secret-key: "Yn2kjibddFAWtnPJ2AFlL8WXmohJMCvigQggaEypa5E="
+      expire-length: 3600000
+
+openapi:
+  public-holidays:
+    base-url: "https://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
+    service-key: "9fDRHHnLRP5Rlocx3yfWBY6aJj%2BuF2CY4CMysP7LC3UObkhWIWh73N%2B3E9tj0ELDmpRBaQkpM7MToAxwlqAkHQ%3D%3D"
