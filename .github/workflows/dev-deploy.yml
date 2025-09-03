@@ -7,43 +7,23 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
-
+    runs-on: [ self-hosted, dev ]  # self-hosted runner + dev 라벨
     steps:
-      # 1️⃣ 코드 체크아웃
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # 2️⃣ JDK 21 설정
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 21
 
-      # 3️⃣ Gradle 빌드 전에 실행 권한 부여
       - name: Make Gradlew Executable
         run: chmod +x ./gradlew
 
-      # 4️⃣ Gradle 빌드
       - name: Build with Gradle
         run: ./gradlew build
 
-      # 4️⃣ Dev 서버로 배포 (SSH 사용)
-      - name: Deploy to Dev Server
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.DEV_SERVER_IP }}
-          username: ubuntu
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            # 환경 변수 적용
-            export DEV_DB_URL=${{ secrets.DEV_DB_URL }}
-            export DEV_DB_USERNAME=${{ secrets.DEV_DB_USERNAME }}
-            export DEV_DB_PASSWORD=${{ secrets.DEV_DB_PASSWORD }}
-            
-            # 기존 프로세스 종료
-            pkill -f lv3-final-mission.jar || true
-            
-            # 새 빌드 실행
-            nohup java -jar build/libs/lv3-final-mission.jar --spring.profiles.active=dev > app.log 2>&1 &
+      - name: Run App
+        run: |
+          pkill -f lv3-final-mission.jar || true
+          nohup java -jar build/libs/lv3-final-mission.jar --spring.profiles.active=dev > app.log 2>&1 &
